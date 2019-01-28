@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Form from './components/Form';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      account: {
+        userName: 'admin',
+        password: '12345678'
+      }
+    }
+  }
+  handleChangeInpForm = (e) => {
+    let newAccount = this.state.account;
+    newAccount[e.target.name] = e.target.value;
+    this.setState({
+      account: newAccount
+    })
+  }
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log(this.state.account)
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Form
+          account={this.state.account}
+          handleChangeInpForm={this.handleChangeInpForm}></Form>
       </div>
     );
   }
